@@ -117,12 +117,194 @@
                     }
                 ]
             }
+        },
+        "/api/wallet/balance": {
+            "get": {
+                "tags": [
+                    "Wallet"
+                ],
+                "summary": "Get user wallet balance",
+                "description": "Get user wallet balance",
+                "operationId": "2a4a1c7eba45be583fce194ae60a72c1",
+                "responses": {
+                    "200": {
+                        "description": "Wallet balance retrieved successfully"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/wallet/deposit": {
+            "post": {
+                "tags": [
+                    "Wallet"
+                ],
+                "summary": "Deposit money into wallet",
+                "description": "Deposit funds into the user's wallet",
+                "operationId": "506845afd12f94e48ec2a586dfb9ee86",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 100
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Deposit successful"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/wallet/withdraw": {
+            "post": {
+                "tags": [
+                    "Wallet"
+                ],
+                "summary": "Withdraw money from wallet",
+                "description": "Withdraw funds from the user's wallet",
+                "operationId": "73405c27b66fe831f83304cefd43c831",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 50
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Withdrawal successful"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/wallet/forceWithdraw": {
+            "post": {
+                "tags": [
+                    "Wallet"
+                ],
+                "summary": "Force withdraw money from wallet (can result in a negative balance)",
+                "description": "Force withdraw funds (allow negative balance)",
+                "operationId": "90c4de07cdbe684db70500be98fb945d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 200
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Payment for services"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Forced withdrawal successful"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "tags": [
         {
+            "name": "Wallet",
+            "description": "Wallet operations for deposit, withdrawal, and balance checks"
+        },
+        {
             "name": "Authentication",
             "description": "Authentication"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Enter token in format (Bearer <token>)"
+            }
+        }
+    },
+    "security": [
+        {
+            "bearerAuth": []
         }
     ]
 }

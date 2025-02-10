@@ -108,8 +108,8 @@ return [
              * @link https://zircote.github.io/swagger-php/reference/processors.html
              */
             'default_processors_configuration' => [
-            /** Example */
-            /**
+                /** Example */
+                /**
              * 'operationId.hash' => true,
              * 'pathFilter' => [
              * 'tags' => [
@@ -170,6 +170,12 @@ return [
         */
         'securityDefinitions' => [
             'securitySchemes' => [
+                'bearerAuth' => [
+                    'type' => 'http',
+                    'scheme' => 'bearer',
+                    'bearerFormat' => 'JWT',
+                    'description' => 'Enter token in format (Bearer <token>)'
+                ],
                 /*
                  * Examples of Security schemes
                  */
@@ -217,6 +223,10 @@ return [
                 */
             ],
             'security' => [
+
+                [
+                    'bearerAuth' => []
+                ],
                 /*
                  * Examples of Securities
                  */
@@ -228,8 +238,7 @@ return [
                     ],
 
                     'passport' => []
-                    */
-                ],
+                    */],
             ],
         ],
 

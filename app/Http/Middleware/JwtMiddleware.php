@@ -15,12 +15,9 @@ class JwtMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $token = $request->header('Authorization');
-
-        if (!$token) {
+        if (!$token = $request->header('Authorization')) {
             return $this->unauthorized('Token not provided');
         }
-
         try {
             JWTAuth::parseToken()->authenticate();
         } catch (TokenExpiredException) {
@@ -38,7 +35,6 @@ class JwtMiddleware
 
     private function unauthorized(string $message)
     {
-        \Log::error("Unauthorized: " . $message);  // 🔍 Debugging Log
         return response()->json(['error' => $message], Response::HTTP_UNAUTHORIZED);
     }
 }
